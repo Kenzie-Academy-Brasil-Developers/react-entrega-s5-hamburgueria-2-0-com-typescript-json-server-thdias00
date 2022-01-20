@@ -6,6 +6,7 @@ export const theme = extendTheme({
     secondary: "#EB5757",
     gray: {
       0: "#F5F5F5",
+      6: "#F2F2F2",
       100: "#E0E0E0",
       300: "#828282",
       600: "#333333",

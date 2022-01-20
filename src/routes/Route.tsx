@@ -1,5 +1,6 @@
 import { ComponentType } from "react";
 import { Redirect, Route as ReactRoute, RouteProps } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 interface Props extends RouteProps {
   isPrivate?: boolean;
@@ -7,15 +8,17 @@ interface Props extends RouteProps {
 }
 
 export const Route = ({
-  isPrivate = true,
+  isPrivate = false,
   component: Component,
   ...rest
 }: Props) => {
+  const { accessToken } = useAuth();
+
   return (
     <ReactRoute
       {...rest}
       render={() =>
-        isPrivate ? (
+        isPrivate === !!accessToken ? (
           <Component />
         ) : (
           <Redirect to={isPrivate ? "/" : "/dashboard"} />

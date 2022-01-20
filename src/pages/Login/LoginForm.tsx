@@ -1,16 +1,30 @@
-import {
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Input,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Grid, Stack, Text } from "@chakra-ui/react";
+import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { Input } from "../../components/Form/Input";
 
-export const LoginForm = () => {
+interface SignInData {
+  email: string;
+  password: string;
+}
+
+interface LoginFormProps {
+  handleSignIn: () => void;
+  errors: DeepMap<FieldValues, FieldError>;
+  register: UseFormRegister<SignInData>;
+}
+
+export const LoginForm = ({
+  handleSignIn,
+  errors,
+  register,
+}: LoginFormProps) => {
+  const history = useHistory();
+
   return (
     <Grid
+      onSubmit={handleSignIn}
       as="form"
       border="1px solid"
       borderColor="gray.100"
@@ -25,17 +39,34 @@ export const LoginForm = () => {
       </Text>
       <Stack spacing={3}>
         <Input
-          h="60px"
-          variant="outline"
-          placeholder="Digite seu nome"
-          color="gray.600"
-          fontWeight="400"
-          fontSize="md"
+          placeholder="Digite seu login"
+          type="email"
+          label="Login"
+          error={errors.email}
+          {...register("email")}
         />
-        <Input h="60px" variant="outline" placeholder="Digite sua senha" />
+        <Input
+          placeholder="Digite sua senha"
+          type="password"
+          label="Senha"
+          error={errors.password}
+          {...register("password")}
+        />
       </Stack>
-      <Button mt="3" bg="primary" h="60px" color="#ffffff">
+      <Button type="submit" mt="3" bg="primary" h="60px" color="#ffffff">
         Logar
+      </Button>
+      <Text mt="3" color="gray.300" fontSize="xs" textAlign="center">
+        Crie sua conta para saborear muitas delícias e matar sua fome!
+      </Text>
+      <Button
+        mt="3"
+        bg="gray.0"
+        h="60px"
+        color="#999999"
+        onClick={() => history.push("/signup")}
+      >
+        Cadastrar
       </Button>
     </Grid>
   );

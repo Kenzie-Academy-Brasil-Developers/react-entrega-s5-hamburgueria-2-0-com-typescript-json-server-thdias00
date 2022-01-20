@@ -13,7 +13,7 @@ import Logo from "../../assets/Captura de tela de 2022-01-18 20-51-59.png";
 import { FiShoppingBag } from "react-icons/fi";
 import { theme } from "../../styles/theme";
 
-export const LoginInfo = () => {
+export const SignUpInfo = () => {
   const isWideVersion = useBreakpointValue({
     base: false,
     md: true,
