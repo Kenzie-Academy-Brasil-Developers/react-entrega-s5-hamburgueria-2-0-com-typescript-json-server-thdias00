@@ -1,4 +1,11 @@
-import { Box, Center, Flex, Image, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Image,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { BsFillCartFill } from "react-icons/bs";
@@ -8,8 +15,10 @@ import { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useAuth } from "../../context/AuthContext";
 import { ModalComponent } from "../Modal/Modal";
+import { useCart } from "../../context/CartContext";
 
 export const Header = () => {
+  const { cart } = useCart();
   const isWideVersion = useBreakpointValue({
     base: false,
     md: true,
@@ -34,17 +43,32 @@ export const Header = () => {
             fontSize="2rem"
             justifyContent="space-between"
           >
-            {/* <SearchHeader /> */}
-            <Box mr="3">
+            <SearchHeader />
+            <Flex mr="3" ml="3">
               <ModalComponent />
-            </Box>
+              <Box
+                bg="primary"
+                borderRadius="7px"
+                color="#FFFFFF"
+                fontWeight="bold"
+                w="20px"
+                h="20px"
+                position="absolute"
+                top="17px"
+                right="60px"
+              >
+                <Center>
+                  <Text fontSize="xs">{cart.length}</Text>
+                </Center>
+              </Box>
+            </Flex>
             <Box onClick={signOut}>
               <FiLogOut color="#BDBDBD" size="23" />
             </Box>
           </Center>
         </>
       )}
-      {/* {!isWideVersion && search && (
+      {!isWideVersion && search && (
         <Flex alignItems="center" w="100%">
           <SearchHeader />
           <Flex
@@ -60,7 +84,7 @@ export const Header = () => {
             <CloseIcon color="white" size="40" />
           </Flex>
         </Flex>
-      )} */}
+      )}
       {!isWideVersion && !search && (
         <>
           <Image w="158.94px" h="36.83px" src={Logo} />
@@ -70,12 +94,27 @@ export const Header = () => {
             fontSize="2rem"
             justifyContent="space-between"
           >
-            {/* <Box mr="3" onClick={() => setSearch(true)}>
+            <Box /* onClick={() => setSearch(true)} */>
               <FaSearch color="#BDBDBD" size="23" />
-            </Box> */}
-            <Box mr="3">
-              <ModalComponent />
             </Box>
+            <Flex mr="3" ml="3">
+              <ModalComponent />
+              <Box
+                bg="primary"
+                borderRadius="7px"
+                color="#FFFFFF"
+                fontWeight="bold"
+                w="20px"
+                h="20px"
+                position="absolute"
+                top="5px"
+                right="60px"
+              >
+                <Center>
+                  <Text fontSize="xs">{cart.length}</Text>
+                </Center>
+              </Box>
+            </Flex>
             <Box onClick={signOut}>
               <FiLogOut color="#BDBDBD" size="23" />
             </Box>

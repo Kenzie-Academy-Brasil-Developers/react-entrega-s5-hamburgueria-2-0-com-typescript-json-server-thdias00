@@ -5,7 +5,7 @@ export const Dashboard = () => {
   return (
     <>
       <Header />
-      <List />;
+      <List />
     </>
   );
 };

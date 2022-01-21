@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useCart } from "../../context/CartContext";
 
 interface Products {
   title: string;
@@ -10,12 +10,11 @@ interface Products {
 }
 
 export const List = () => {
-  const { products, addCart } = useAuth();
-  const [cartTotal, setCartTotal] = useState(0);
+  const { totalCart, addCart, products } = useCart();
 
   const addToCart = (product: Products) => {
-    setCartTotal(cartTotal + product.price);
     addCart(product);
+    totalCart();
   };
 
   /*const removeAll = () => {
@@ -38,10 +37,10 @@ export const List = () => {
           flexWrap={["nowrap", "nowrap", "wrap", "wrap"]}
           justifyContent={["start", "start", "center", "center"]}
         >
-          {products.map((product) => (
+          {products.map((product, index) => (
             <Flex
               flexDirection="column"
-              key={product.id}
+              key={index}
               w="300px"
               border="2px solid"
               borderColor="gray.100"

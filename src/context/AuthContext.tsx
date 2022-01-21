@@ -1,11 +1,8 @@
 import {
   createContext,
-  Dispatch,
   ReactNode,
-  SetStateAction,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -40,14 +37,11 @@ interface SignupCredentials {
 interface AuthContextData {
   user: User;
   accessToken: string;
-  products: Products[];
   /* newProduct: Products[]; */
-  cart: Products[];
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
   signUp: (credentials: SignupCredentials) => Promise<void>;
   /* filteredProductFunction: (product: Products[]) => void; */
-  addCart: (product: Products) => void;
 }
 interface Products {
   title: string;
@@ -70,8 +64,8 @@ const useAuth = () => {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [data, setData] = useState<AuthState>(() => {
-    const accessToken = localStorage.getItem("@Hamburgueria:accessToken");
-    const user = localStorage.getItem("@Hamburgueria:user");
+    const accessToken = localStorage.getItem("@Hamburgueria:accessToken") || "";
+    const user = localStorage.getItem("@Hamburgueria:user") || "";
 
     if (accessToken && user) {
       return { accessToken, user: JSON.parse(user) };
@@ -101,14 +95,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = useCallback(() => {
     localStorage.removeItem("@Hamburgueria:accessToken");
     localStorage.removeItem("@Hamburgueria:user");
+    localStorage.removeItem("@Hamburgueria:cart");
 
     setData({} as AuthState);
-  }, []);
-
-  const [products, setProducts] = useState<Products[]>([]);
-
-  useEffect(() => {
-    api.get("products").then((response) => setProducts(response.data));
   }, []);
 
   /* const [newProduct, setNewProduct] = useState<Products[]>({} as Products[]);
@@ -116,12 +105,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const filteredProductFunction = (itemFiltered: Products[]) => {
     setNewProduct(itemFiltered);
   }; */
-
-  const [cart, setCart] = useState<Products[]>([]);
-
-  const addCart = (item: Products) => {
-    setCart([...cart, item]);
-  };
 
   return (
     <AuthContext.Provider
@@ -131,11 +114,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         signIn,
         signOut,
         signUp,
-        products,
         /* filteredProductFunction,
         newProduct, */
-        cart,
-        addCart,
       }}
     >
       {children}
