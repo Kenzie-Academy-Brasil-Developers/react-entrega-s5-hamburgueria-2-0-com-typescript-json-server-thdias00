@@ -1,5 +1,4 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 
 interface Products {
@@ -67,7 +66,7 @@ export const List = () => {
                   {product.title}
                 </Heading>
                 <Text mb="4" fontWeight="bold" color="sucess">
-                  R$: {product.price}
+                  R$: {product.price.toFixed(2)}
                 </Text>
                 <Button
                   w="50%"

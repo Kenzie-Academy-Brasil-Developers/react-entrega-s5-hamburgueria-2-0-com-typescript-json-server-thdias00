@@ -3,7 +3,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -14,7 +13,6 @@ import {
   Center,
   Heading,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { BsFillCartFill } from "react-icons/bs";
 import { useCart } from "../../context/CartContext";
 import { ListCart } from "./ListCart";
@@ -46,7 +44,7 @@ export const ModalComponent = () => {
                   <Text fontSize="md" fontWeight="bold">
                     Total
                   </Text>
-                  <Text color="gray.300">R$: {total}</Text>
+                  <Text color="gray.300">R$: {total.toFixed(2)}</Text>
                 </Flex>
                 <Box
                   w="100%"

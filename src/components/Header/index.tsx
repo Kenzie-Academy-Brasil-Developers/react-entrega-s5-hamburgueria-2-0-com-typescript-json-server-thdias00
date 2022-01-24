@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { BsFillCartFill } from "react-icons/bs";
 import { SearchHeader } from "./SearchHeader";
 import Logo from "../../assets/Captura de tela de 2022-01-18 20-51-59.png";
 import { useState } from "react";
@@ -77,8 +76,8 @@ export const Header = () => {
             alignItems="center"
             bg="negative"
             borderRadius="5px"
-            w="50px"
-            h="50px"
+            w="30px"
+            h="30px"
             ml="3"
           >
             <CloseIcon color="white" size="40" />
@@ -94,7 +93,7 @@ export const Header = () => {
             fontSize="2rem"
             justifyContent="space-between"
           >
-            <Box /* onClick={() => setSearch(true)} */>
+            <Box onClick={() => setSearch(true)}>
               <FaSearch color="#BDBDBD" size="23" />
             </Box>
             <Flex mr="3" ml="3">
