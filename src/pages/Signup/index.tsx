@@ -56,7 +56,7 @@ export const Signup = () => {
       flexDirection={["column", "column", "row", "row"]}
       justifyContent="center"
       w="100%"
-      h="100%"
+      h={["100%", "100%", "100vh", "100vh"]}
     >
       <Center>
         <SignUpInfo />
